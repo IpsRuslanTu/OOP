@@ -1,8 +1,9 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <fstream>
 #include <optional>
 #include <string>
 #include <vector>
+#include "FindText.h"
 
 using namespace std;
 
@@ -11,7 +12,6 @@ struct Args
     string inputFileName;
     string textToSearch;
 };
-
 
 optional<Args> ParseArgs(int argc, char* argv[])
 {
@@ -27,17 +27,32 @@ optional<Args> ParseArgs(int argc, char* argv[])
     return args;
 }
 
+void FindText(ifstream& input, string str, vector<int>& lineWithMatch)
+{
+    // Р’С‹РїРѕР»РЅСЏРµС‚ РїРѕРёСЃРє СЃС‚СЂРѕРєРё РІ С„Р°Р№Р»Рµ
+    string stringFromFile;
+    int counter = 0;
+    while (getline(input, stringFromFile))
+    {
+        ++counter;
+        auto pos = stringFromFile.find(str);
+        if (pos != string::npos)
+        {
+            lineWithMatch.push_back(counter);
+        }
+    }
+}
 
 int main(int argc, char* argv[])
 {
     auto args = ParseArgs(argc, argv);
-    // Проверка правильности аргументов командной строки
+    // РџСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё Р°СЂРіСѓРјРµРЅС‚РѕРІ РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё
     if (!args)
     {
         return 1;
     }
 
-    // Открываем входной файл
+    // РћС‚РєСЂС‹РІР°РµРј РІС…РѕРґРЅРѕР№ С„Р°Р№Р»
     ifstream input;
     input.open(args->inputFileName);
     if (!input.is_open())
@@ -46,19 +61,10 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    // Выполняет поиск строки в файле
-    string stringFromFile;
-    int counter = 0;
+    // РњР°СЃСЃРёРІ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РЅРѕРјРµСЂРѕРІ СЃС‚СЂРѕРє, РіРґРµ РЅР°Р№РґРµРЅР° Р·Р°РґР°РЅРЅР°СЏ СЃС‚СЂРѕРєР°
     vector<int> lineWithMatch;
-    while (getline(input, stringFromFile))
-    {
-        ++counter;
-        auto pos = stringFromFile.find(args->textToSearch);
-        if (pos != string::npos)
-        {
-            lineWithMatch.push_back(counter);
-        }
-    }
+
+    FindText(input, args->textToSearch, lineWithMatch);
 
     if (input.bad())
     {
@@ -76,9 +82,7 @@ int main(int argc, char* argv[])
         }
         return 0;
     }
-    else 
-    {
-        cout << "Text not found\n";
-        return 1;
-    }
+ 
+    cout << "Text not found\n";
+    return 1;
 }
