@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <optional>
 #include <string>
@@ -28,7 +28,7 @@ optional<Args> ParseArgs(int argc, char* argv[])
 
 void CopyFile(ifstream& input, ofstream& output)
 {
-    // ÐšÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¾Ðµ Ð²Ñ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð° Ð² Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ð¹
+    // Êîïèðóåì ñîäåðæèìîå âõîäíîãî ôàéëà â âûõîäíîé
     char ch;
     while (input.get(ch))
     {
@@ -42,13 +42,13 @@ void CopyFile(ifstream& input, ofstream& output)
 int main(int argc, char *argv[])
 {
     auto args = ParseArgs(argc, argv);
-    // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½Ð¾ÑÑ‚Ð¸ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚Ð¾Ð² ÐºÐ¾Ð¼Ð°Ð½Ð´Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð¾ÐºÐ¸
+    // Ïðîâåðêà ïðàâèëüíîñòè àðãóìåíòîâ êîìàíäíîé ñòðîêè
     if (!args)
     {
         return 1;
     }
 
-    // ÐžÑ‚ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ð²Ñ…Ð¾Ð´Ð½Ð¾Ð¹ Ñ„Ð°Ð¹Ð»
+    // Îòêðûâàåì âõîäíîé ôàéë
     ifstream input;
     input.open(args->inputFileName);
     if (!input.is_open())
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // ÐžÑ‚ÐºÑ€Ñ‹Ð²Ð°ÐµÐ¼ Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ð¾Ð¹ Ñ„Ð°Ð¹Ð»
+    // Îòêðûâàåì âûõîäíîé ôàéë
     ofstream output;
     output.open(args->outputFileName);
     if (!output.is_open())
