@@ -2,6 +2,7 @@
 #include <fstream>
 #include <optional>
 #include <string>
+#include "CopyFile.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ optional<Args> ParseArgs(int argc, char* argv[])
 {
     if (argc != 3)
     {
+        cout << "Invalid arguments count\n";
+        cout << "Usage: CopyFile.exe <input file name> <output file name>\n";
         return nullopt;
     }
     Args args;
@@ -23,14 +26,25 @@ optional<Args> ParseArgs(int argc, char* argv[])
     return args;
 }
 
+void CopyFile(ifstream& input, ofstream& output)
+{
+    // Копируем содержиое входного файла в выходной
+    char ch;
+    while (input.get(ch))
+    {
+        if (!output.put(ch))
+        {
+            break;
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     auto args = ParseArgs(argc, argv);
     // Проверка правильности аргументов командной строки
     if (!args)
     {
-        cout << "Invalid arguments count\n";
-        cout << "Usage: CopyFile.exe <input file name> <output file name>\n";
         return 1;
     }
 
@@ -52,15 +66,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Копируем содержиое входного файла в выходной
-    char ch;
-    while (input.get(ch))
-    {
-        if (!output.put(ch))
-        {
-            break;
-        }
-    }
+    CopyFile(input, output);
 
     if (input.bad())
     {
