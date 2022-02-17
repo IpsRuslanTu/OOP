@@ -3,7 +3,6 @@
 #include <optional>
 #include <string>
 #include <vector>
-#include "FindText.h"
 
 using namespace std;
 
@@ -18,7 +17,7 @@ optional<Args> ParseArgs(int argc, char* argv[])
     if (argc != 3)
     {
         cout << "Invalid arguments count\n";
-        cout << "Usage: FindText.exe <file name> <text to search>\n";
+        cout << "Usage: FindText.exe <file name> '<text to search>'\n";
         return nullopt;
     }
     Args args;
@@ -27,15 +26,15 @@ optional<Args> ParseArgs(int argc, char* argv[])
     return args;
 }
 
-void FindText(ifstream& input, string str, vector<int>& lineWithMatch)
+void FindText(ifstream& input, string stringForSearch, vector<int>& lineWithMatch)
 {
     // Выполняет поиск строки в файле
-    string stringFromFile;
+    string lineFromFile;
     int counter = 0;
-    while (getline(input, stringFromFile))
+    while (getline(input, lineFromFile))
     {
         ++counter;
-        auto pos = stringFromFile.find(str);
+        auto pos = lineFromFile.find(stringForSearch);
         if (pos != string::npos)
         {
             lineWithMatch.push_back(counter);

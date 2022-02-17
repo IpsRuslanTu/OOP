@@ -21,10 +21,6 @@ REM If input and output files are not specified, program must fail
 %MyProgram% && goto err
 echo Test 3 passed
 
-
-
-
-
 REM Тесты прошли успешно
 echo All tests passed succesfuly
 exit /B 0

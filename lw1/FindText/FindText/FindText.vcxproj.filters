@@ -21,5 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="onegin.txt" />
+    <Text Include="EmptyFile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tests.bat">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
