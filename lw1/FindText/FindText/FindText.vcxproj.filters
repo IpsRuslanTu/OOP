@@ -27,5 +27,6 @@
     <None Include="Tests.bat">
       <Filter>Source Files</Filter>
     </None>
+    <None Include=".clang-format" />
   </ItemGroup>
 </Project>

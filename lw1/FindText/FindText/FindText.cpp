@@ -9,7 +9,7 @@ using namespace std;
 struct Args
 {
     string inputFileName;
-    string textToSearch;
+    string textForSearch;
 };
 
 optional<Args> ParseArgs(int argc, char* argv[])
@@ -22,13 +22,14 @@ optional<Args> ParseArgs(int argc, char* argv[])
     }
     Args args;
     args.inputFileName = argv[1];
-    args.textToSearch = argv[2];
+    args.textForSearch = argv[2];
     return args;
 }
 
-void FindText(ifstream& input, string stringForSearch, vector<int>& lineWithMatch)
+vector<int> FindText(ifstream& input, string stringForSearch)
 {
     // Выполняет поиск строки в файле
+	vector<int> numsOfLines;
     string lineFromFile;
     int counter = 0;
     while (getline(input, lineFromFile))
@@ -37,15 +38,17 @@ void FindText(ifstream& input, string stringForSearch, vector<int>& lineWithMatc
         auto pos = lineFromFile.find(stringForSearch);
         if (pos != string::npos)
         {
-            lineWithMatch.push_back(counter);
+			numsOfLines.push_back(counter);
         }
     }
+	return numsOfLines;
 }
 
 int main(int argc, char* argv[])
 {
     auto args = ParseArgs(argc, argv);
     // Проверка правильности аргументов командной строки
+
     if (!args)
     {
         return 1;
@@ -61,9 +64,7 @@ int main(int argc, char* argv[])
     }
 
     // Массив для хранения номеров строк, где найдена заданная строка
-    vector<int> lineWithMatch;
-
-    FindText(input, args->textToSearch, lineWithMatch);
+    vector<int> lineWithMatch = FindText(input, args->textForSearch);
 
     if (input.bad())
     {
@@ -71,17 +72,13 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    // Печать массива с найденными строками
     if (lineWithMatch.size() > 0)
     {
-        cout << "Text '" << args->textToSearch << "', found in " << args->inputFileName << "\n";
-        cout << "Numbers of lines, where text was found:\n";
-        for (int i = 0; i < lineWithMatch.size(); ++i)
-        {
-            cout << lineWithMatch[i] << "\n";
-        }
-        return 0;
+		copy(lineWithMatch.begin(), lineWithMatch.end(), ostream_iterator<int>(cout, " "));
+		return 0;
     }
- 
+
     cout << "Text not found\n";
     return 1;
 }
