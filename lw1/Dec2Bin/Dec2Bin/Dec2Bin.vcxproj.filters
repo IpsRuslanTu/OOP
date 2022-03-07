@@ -19,4 +19,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Tests.bat">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include=".clang-format" />
+  </ItemGroup>
 </Project>
