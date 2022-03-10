@@ -159,6 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="EmptyFile.txt" />
+    <Text Include="Ideal.txt" />
+    <Text Include="of.txt" />
     <Text Include="onegin.txt" />
   </ItemGroup>
   <ItemGroup>

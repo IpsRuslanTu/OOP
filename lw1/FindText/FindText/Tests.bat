@@ -1,5 +1,4 @@
 ﻿@echo off
-REM 5. Есть непокрытые кейсы с успешным выполнением
 
 REM Путь к тестируемой программе передается через первый аргумент командной строки
 SET MyProgram="%~1"
@@ -21,6 +20,21 @@ echo Test 2 passed
 REM If input and output files are not specified, program must fail
 %MyProgram% && goto err
 echo Test 3 passed
+
+REM Запуск программы с правильными параметрами, проверка поиска строк
+%MyProgram% onegin.txt "Ideal" > "%TEMP%\output.txt" || goto err
+fc "Ideal.txt" "%TEMP%\output.txt" || goto err
+echo Test 4 passed
+
+REM Запуск программы с правильными параметрами, проверка поиска строк
+%MyProgram% onegin.txt "of" > "%TEMP%\output.txt" || goto err
+fc "of.txt" "%TEMP%\output.txt" || goto err
+echo Test 5 passed
+
+REM Запуск программы с правильными параметрами, но искомого слова нет в тексте,
+REM программа должна упасть
+%MyProgram% onegin.txt "offf" && goto err
+echo Test 6 passed
 
 REM Тесты прошли успешно
 echo All tests passed succesfuly

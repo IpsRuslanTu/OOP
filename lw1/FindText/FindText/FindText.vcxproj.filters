@@ -22,6 +22,8 @@
   <ItemGroup>
     <Text Include="onegin.txt" />
     <Text Include="EmptyFile.txt" />
+    <Text Include="Ideal.txt" />
+    <Text Include="of.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tests.bat">
