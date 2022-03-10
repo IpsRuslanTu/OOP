@@ -25,4 +25,8 @@
     </None>
     <None Include=".clang-format" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="2147483647.txt" />
+    <Text Include="0.txt" />
+  </ItemGroup>
 </Project>

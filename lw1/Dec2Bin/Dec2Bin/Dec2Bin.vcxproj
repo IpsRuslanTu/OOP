@@ -161,6 +161,10 @@
     <None Include=".clang-format" />
     <None Include="Tests.bat" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="0.txt" />
+    <Text Include="2147483647.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
