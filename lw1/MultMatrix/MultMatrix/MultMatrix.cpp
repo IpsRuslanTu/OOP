@@ -1,25 +1,67 @@
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <optional>
-#include <fstream>
 #include <sstream>
 #include <string>
 
 using namespace std;
 
 const int SIZE_MATRIX = 3;
+const int MAX_INDEX_MATRIX = 2;
 
 typedef float Matrix3x3[SIZE_MATRIX][SIZE_MATRIX];
 
 struct Args
 {
-	string inFile1;
-	string inFile2;
+	string inputFile1;
+	string inputFile2;
 };
 
 struct WrapperMatrix
 {
 	Matrix3x3 innerMatrix;
 };
+
+optional<Args> ParseArgs(int argc, char* argv[]);
+optional<ifstream> OpenFile(string fileIn);
+optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input);
+WrapperMatrix MultiMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX]);
+void PrintMatrix(Matrix3x3 inputMatrix);
+
+int main(int argc, char* argv[])
+{
+	auto args = ParseArgs(argc, argv);
+	if (!args)
+		return 1;
+
+	auto input1 = OpenFile(args->inputFile1);
+	if (!input1)
+		return 1;
+
+	auto input2 = OpenFile(args->inputFile2);
+	if (!input2)
+		return 1;
+
+	auto newMatrix1 = CreateMatrixFromFile(*input1);
+	if (!newMatrix1)
+	{
+		cout << "Wrong matrix in file" << args->inputFile1 << "\n";
+		return 1;
+	}
+	auto newMatrix2 = CreateMatrixFromFile(*input2);
+	if (!newMatrix2)
+	{
+		cout << "Wrong matrix in file" << args->inputFile2 << "\n";
+		return 1;
+	}
+
+	WrapperMatrix resultMatrix = MultiMatrix(newMatrix1->innerMatrix, newMatrix2->innerMatrix);
+
+	PrintMatrix(resultMatrix.innerMatrix);
+
+	return 0;
+}
 
 optional<Args> ParseArgs(int argc, char* argv[])
 {
@@ -30,8 +72,8 @@ optional<Args> ParseArgs(int argc, char* argv[])
 		return nullopt;
 	}
 	Args args;
-	args.inFile1 = argv[1];
-	args.inFile2 = argv[2];
+	args.inputFile1 = argv[1];
+	args.inputFile2 = argv[2];
 	return args;
 }
 
@@ -49,7 +91,7 @@ optional<ifstream> OpenFile(string fileIn)
 
 optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 {
-	WrapperMatrix matrix;
+	WrapperMatrix matrixFromFile;
 
 	float num;
 	string buf;
@@ -58,7 +100,8 @@ optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 	int j = 0;
 	while (!input.eof())
 	{
-		if (i > 2) return nullopt;
+		if (i > MAX_INDEX_MATRIX)
+			return nullopt;
 		getline(input, buf);
 		stringstream str;
 		str.str(buf);
@@ -66,17 +109,37 @@ optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 		j = 0;
 		while (str >> num)
 		{
-			if (j > 2)
+			if (j > MAX_INDEX_MATRIX)
 			{
 				return nullopt;
 			}
-			matrix.innerMatrix[i][j] = num;
+			matrixFromFile.innerMatrix[i][j] = num;
 			++j;
 		}
 		++i;
 	}
 
-	return matrix;
+	return matrixFromFile;
+}
+
+WrapperMatrix MultiMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX])
+{
+	WrapperMatrix finalMatrix = { 0 };
+	float temp = 0;
+
+	for (int i = 0; i < SIZE_MATRIX; ++i)
+	{
+		for (int j = 0; j < SIZE_MATRIX; ++j)
+		{
+			for (int k = 0; k < SIZE_MATRIX; ++k)
+			{
+				temp = matrix1[i][k] * matrix2[k][j];
+				finalMatrix.innerMatrix[i][j] += temp;
+				temp = 0;
+			}
+		}
+	}
+	return finalMatrix;
 }
 
 void PrintMatrix(Matrix3x3 inputMatrix)
@@ -84,42 +147,8 @@ void PrintMatrix(Matrix3x3 inputMatrix)
 	for (int i = 0; i < SIZE_MATRIX; ++i)
 	{
 		for (int j = 0; j < SIZE_MATRIX; ++j)
-			cout << inputMatrix[i][j] << " ";
+			cout << fixed << setprecision(3) << inputMatrix[i][j] << "\t\t";
 		cout << "\n";
 	}
-}
-
-int main(int argc, char* argv[])
-{
-	auto args = ParseArgs(argc, argv);
-	if (!args)
-		return 1;
-
-
-	auto input1 = OpenFile(args->inFile1);
-	if (!input1)
-		return 1;
-
-	auto input2 = OpenFile(args->inFile2);
-	if (!input2)
-		return 1;
-
-	auto newMatrix1 = CreateMatrixFromFile(*input1);
-	if (!newMatrix1)
-	{
-		cout << "Wrong matrix in file" << args->inFile1 << "\n";
-		return 1;
-	}
-	auto newMatrix2 = CreateMatrixFromFile(*input2);
-	if (!newMatrix2)
-	{
-		cout << "Wrong matrix in file" << args->inFile2 << "\n";
-		return 1;
-	}
-
-	PrintMatrix(newMatrix1->innerMatrix);
-	cout << endl;
-	PrintMatrix(newMatrix2->innerMatrix);
-		
-	return 0;
+	cout << "\n";
 }

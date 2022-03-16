@@ -23,4 +23,7 @@
     <Text Include="MatrixFile1.txt" />
     <Text Include="MatrixFile2.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".clang-format" />
+  </ItemGroup>
 </Project>
