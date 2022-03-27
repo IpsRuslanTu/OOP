@@ -22,8 +22,16 @@
   <ItemGroup>
     <Text Include="MatrixFile1.txt" />
     <Text Include="MatrixFile2.txt" />
+    <Text Include="resultMatrix.txt" />
+    <Text Include="wrongMatrixWidth.txt" />
+    <Text Include="wrongMatrixHeight.txt" />
+    <Text Include="empty.txt" />
+    <Text Include="hello.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
+    <None Include="Tests.bat">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

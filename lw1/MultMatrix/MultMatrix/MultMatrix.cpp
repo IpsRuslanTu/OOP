@@ -24,9 +24,13 @@ struct WrapperMatrix
 };
 
 optional<Args> ParseArgs(int argc, char* argv[]);
+
 optional<ifstream> OpenFile(string fileIn);
+
 optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input);
-WrapperMatrix MultiMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX]);
+
+WrapperMatrix MultMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX]);
+
 void PrintMatrix(Matrix3x3 inputMatrix);
 
 int main(int argc, char* argv[])
@@ -46,17 +50,17 @@ int main(int argc, char* argv[])
 	auto newMatrix1 = CreateMatrixFromFile(*input1);
 	if (!newMatrix1)
 	{
-		cout << "Wrong matrix in file" << args->inputFile1 << "\n";
+		cout << "Wrong matrix in file " << args->inputFile1 << "\n";
 		return 1;
 	}
 	auto newMatrix2 = CreateMatrixFromFile(*input2);
 	if (!newMatrix2)
 	{
-		cout << "Wrong matrix in file" << args->inputFile2 << "\n";
+		cout << "Wrong matrix in file " << args->inputFile2 << "\n";
 		return 1;
 	}
 
-	WrapperMatrix resultMatrix = MultiMatrix(newMatrix1->innerMatrix, newMatrix2->innerMatrix);
+	WrapperMatrix resultMatrix = MultMatrix(newMatrix1->innerMatrix, newMatrix2->innerMatrix);
 
 	PrintMatrix(resultMatrix.innerMatrix);
 
@@ -68,7 +72,7 @@ optional<Args> ParseArgs(int argc, char* argv[])
 	if (argc != 3)
 	{
 		cout << "Invalid arguments count\n";
-		cout << "Usage: CopyFile.exe <input file name> <output file name>\n";
+		cout << "Usage: MultiMatrix.exe <input file with matrix> <input file with matrix>\n";
 		return nullopt;
 	}
 	Args args;
@@ -89,6 +93,7 @@ optional<ifstream> OpenFile(string fileIn)
 	return input;
 }
 
+//2. Подумай над более подходящим названием
 optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 {
 	WrapperMatrix matrixFromFile;
@@ -102,6 +107,7 @@ optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 	{
 		if (i > MAX_INDEX_MATRIX)
 			return nullopt;
+
 		getline(input, buf);
 		stringstream str;
 		str.str(buf);
@@ -113,16 +119,21 @@ optional<WrapperMatrix> CreateMatrixFromFile(ifstream& input)
 			{
 				return nullopt;
 			}
+
 			matrixFromFile.innerMatrix[i][j] = num;
 			++j;
 		}
 		++i;
 	}
 
+	if (i != SIZE_MATRIX && j != SIZE_MATRIX)
+		return nullopt;
+
 	return matrixFromFile;
 }
 
-WrapperMatrix MultiMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX])
+//1. Можно изменить на typdef
+WrapperMatrix MultMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MATRIX])
 {
 	WrapperMatrix finalMatrix = { 0 };
 	float temp = 0;
@@ -135,7 +146,6 @@ WrapperMatrix MultiMatrix(float matrix1[][SIZE_MATRIX], float matrix2[][SIZE_MAT
 			{
 				temp = matrix1[i][k] * matrix2[k][j];
 				finalMatrix.innerMatrix[i][j] += temp;
-				temp = 0;
 			}
 		}
 	}
@@ -147,8 +157,7 @@ void PrintMatrix(Matrix3x3 inputMatrix)
 	for (int i = 0; i < SIZE_MATRIX; ++i)
 	{
 		for (int j = 0; j < SIZE_MATRIX; ++j)
-			cout << fixed << setprecision(3) << inputMatrix[i][j] << "\t\t";
+			cout << fixed << setprecision(3) << inputMatrix[i][j] << " ";
 		cout << "\n";
 	}
-	cout << "\n";
 }
