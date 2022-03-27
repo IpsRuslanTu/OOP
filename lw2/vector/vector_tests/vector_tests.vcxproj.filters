@@ -15,22 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vector.cpp">
+    <ClCompile Include="vector_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WorkWithVector.cpp">
+    <ClCompile Include="..\vector\WorkWithVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test_arr.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="WorkWithVector.h">
+    <ClInclude Include="..\vector\WorkWithVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".clang-format" />
   </ItemGroup>
 </Project>
