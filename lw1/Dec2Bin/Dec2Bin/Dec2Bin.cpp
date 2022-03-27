@@ -21,7 +21,7 @@ optional<int> checkArgs(int argc, char* argv[])
 	if (argc != 2)
 	{
 		cout << "Invalid arguments count\n";
-		cout << "Usage: dec2bin.exe <number from 0 to (2^31)>\n";
+		cout << "Usage: dec2bin.exe <number from 0 to (2^31 - 1)>\n";
 		return nullopt;
 	}
 
@@ -30,6 +30,7 @@ optional<int> checkArgs(int argc, char* argv[])
 
 	try
 	{
+		//1. разобрать с выводами ошибок и результата
 		int numFromArg = stoi(argv[1]);
 		if (numFromArg >= 0)
 			return numFromArg;
@@ -38,7 +39,7 @@ optional<int> checkArgs(int argc, char* argv[])
 	}
 	catch (out_of_range err)
 	{
-		cout << "Error. Enter a number in the range from 0 to (2^31)\n";
+		cout << "Error. Enter a number in the range from 0 to (2^31 - 1)\n";
 	}
 
 	return nullopt;
@@ -48,6 +49,7 @@ void PrintNumInBinary(int num)
 {
 	bool printBit = false;
 
+	//вынести в const
 	for (int i = 31; i >= 0; --i)
 	{
 		if (printBit)
@@ -61,6 +63,7 @@ void PrintNumInBinary(int num)
 		}
 	}
 
+	//проверку можно сделать через сравнение с 0
 	if (printBit == false)
 		cout << 0;
 	cout << "\n";
@@ -69,7 +72,7 @@ void PrintNumInBinary(int num)
 int main(int argc, char* argv[])
 {
 	auto inputNum = checkArgs(argc, argv);
-	// Проверка правильности аргументов командной строки, получение числа
+
 	if (!inputNum)
 	{
 		return 1;

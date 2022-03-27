@@ -14,7 +14,7 @@ REM If no input number, program must fail
 echo Test 1 passed
 
 REM If extra parameters, program must fail
-%MyProgram% 34 "234" && goto err
+%MyProgram% "34" "234" && goto err
 echo Test 2 passed
 
 REM If parameter is not number, program must fail
@@ -26,17 +26,17 @@ REM If parameter is not number, program must fail
 echo Test 4 passed
 
 REM If parameter is not bigger then type int, program must fail
-%MyProgram% 2147483648 && goto err
+%MyProgram% "2147483648" && goto err
 echo Test 5 passed
 
 REM If parameter is 0
-%MyProgram% 0 > "%TEMP%\output.txt" || goto err
-fc "%TEMP%\output.txt" 0.txt || goto err
+%MyProgram% "0" > "%TEMP%\output.txt" || goto err
+fc "%TEMP%\output.txt" "0.txt" || goto err
 echo Test 6 passed
 
 REM If parameter is (MAX_INT - 1)
-%MyProgram% 2147483647 > "%TEMP%\output.txt" || goto err
-fc "%TEMP%\output.txt" 2147483647.txt || goto err
+%MyProgram% "2147483647" > "%TEMP%\output.txt" || goto err
+fc "%TEMP%\output.txt" "2147483647.txt" || goto err
 echo Test 7 passed
 
 REM Тесты прошли успешно
