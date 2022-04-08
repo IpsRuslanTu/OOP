@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CountingWords.cpp">
+    <ClCompile Include="CountingWords_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionsForMap.cpp">
+    <ClCompile Include="..\CountingWords\FunctionsForMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FunctionsForMap.h">
+    <ClInclude Include="..\CountingWords\FunctionsForMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

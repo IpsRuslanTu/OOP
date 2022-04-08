@@ -1,4 +1,4 @@
-#include "FunctionsForMap.h"
+﻿#include "FunctionsForMap.h"
 #include <algorithm>
 #include <sstream>
 
@@ -11,11 +11,14 @@ void PrintMap(std::map <std::string, unsigned int> countWords)
     }
 }
 
-std::map <std::string, unsigned int> AddWordToMap(const std::map <std::string, unsigned int> mapWords, 
+//1. кажется тут копирование лишним
+std::map <std::string, unsigned int> AddWordToMap(std::map <std::string, unsigned int> mapWords, 
     std::string word)
 {
     std::map <std::string, unsigned int> tempMapWords = mapWords;
     std::map <std::string, unsigned int>::iterator it;
+
+    it = tempMapWords.find(word);
 
     std::transform(word.begin(), word.end(), word.begin(), ::tolower);
     it = tempMapWords.find(word);
@@ -29,6 +32,7 @@ std::map <std::string, unsigned int> AddWordToMap(const std::map <std::string, u
     return tempMapWords;
 }
 
+//2. подумай над названиями, функции не делают то как названы
 std::map <std::string, unsigned int> AddAndCountWordsToMap(const std::map <std::string, 
     unsigned int> countWords, std::string str)
 {
