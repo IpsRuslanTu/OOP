@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN
+﻿#define CATCH_CONFIG_MAIN
 #include "../../../catch2/catch.hpp"
 
 #include "../vector/WorkWithVector.h"
@@ -33,15 +33,32 @@ SCENARIO("Test function GetFloatVectorFromString")
 
 SCENARIO("Test function MultiplyMaxAndMinElementsOfVector")
 {
-	REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1 }) == 1.21f);
-	REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1, 0 }) == 0);
-	REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1, 0, -1.1 }) == -1.21f);
+	WHEN("vector has 1 float numbers")
+	{
+		THEN("Test results")
+		{
+			//3. можно разделить на разные тест кейсы + дописать тесты
+			REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1 }) == 1.21f);
+			REQUIRE(MultiplyMaxAndMinElementsOfVector({ 0 }) == 0);
+			REQUIRE(MultiplyMaxAndMinElementsOfVector({ -1.1 }) == 1.21f);
+		}
+		
+	}
+	WHEN("vector has 2 float numbers")
+	{
+		THEN("Test results")
+		{
+			REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1, 0 }) == 0);
+			REQUIRE(MultiplyMaxAndMinElementsOfVector({ 1.1, 0, -1.1 }) == -1.21f);
+		}
+	}
+	
 }
 
 SCENARIO("Test function MultiplyNegativeValuesInVector")
 {
 	std::vector<float> test{ 1.1, 0 };
-	REQUIRE(MultiplyNegativeValuesInVector({1.1, 0}, 2.2) == test);
+	REQUIRE(MultiplyNegativeValuesInVector({ 1.1, 0 }, 2.2) == test);
 
 	std::vector<float> test2{ 2.2, 1 };
 	REQUIRE(MultiplyNegativeValuesInVector({ -1.1, 1 }, -2) == test2);
