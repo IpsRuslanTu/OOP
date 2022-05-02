@@ -33,7 +33,8 @@ bool CTVSet::IsTurnedOn()const
 
 bool CTVSet::SelectChannel(int channel)
 {
-	if (m_isOn && (channel >= 1 && channel <= 99))
+	bool isInRange = channel >= 1 && channel <= 99 ? true : false;
+	if (m_isOn && isInRange)
 	{
 		m_prevChannel = m_channel;
 		m_channel = channel;
