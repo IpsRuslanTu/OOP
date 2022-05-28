@@ -1,27 +1,25 @@
 #include <iostream>
 #include <vector>
-#include "CRectangle.h"
-#include "CCircle.h"
-#include <variant>
+#include "CShapesStore.h"
 
 using namespace std;
 
 int main()
 {
-	CRectangle rect(1, 2, 5, 6, 7, 8);
+	//CRectangle rect(1, 2, 5, 6, 7, 8);
+	//vector<IShape*> arr;
+	//arr.push_back(&rect);
 
-	CCircle circle(1, 1, 8, 3, 4);
+	CShapesStore shapes(cin, cout);
 
-	vector<IShape*> arr;
-
-	arr.push_back(&rect);
-
-	arr.push_back(&circle);
-
-	for (int i = 0; i < arr.size(); ++i)
+	while (!cin.eof() && !cin.fail())
 	{
-		cout << arr[i]->GetArea() << endl;
+		cout << "> ";
+		if (!shapes.AddShape())
+		{
+			cout << "Unknown shape!" << endl;
+		}
 	}
 
-    return 0;
+	return 0;
 }
