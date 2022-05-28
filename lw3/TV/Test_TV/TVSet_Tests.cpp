@@ -98,13 +98,71 @@ BOOST_AUTO_TEST_CASE(restores_last_selected_channel)
 }
 BOOST_AUTO_TEST_SUITE_END()
 
-// Напишите тесты для недостающего функционала класса CTVSet (если нужно)
-//	и для дополнительных заданий на бонусные баллы (если нужно)
-// После написания каждого теста убедитесь, что он не проходит.
-// Доработайте простейшим образом класс CTVSet, чтобы этот тест и предыдущие проходили
-// При необходимости выполните рефакторинг кода, сохраняя работоспособность тестов
-// При необходимости используйте вложенные тесты (как использующие fixture, так и нет)
-// Имена тестам и test suite-ам давайте такие, чтобы выводимая в output иерархия
-//	тестов читалась как спецификация на английском языке, описывающая поведение телевизора
+struct switching_to_previous_channel_ : when_turned_on_
+{
+	switching_to_previous_channel_()
+	{
+		tv.TurnOn();
+		tv.SelectChannel(5);
+		tv.SelectChannel(81);
+	}
+};
+
+// проверка функции, выполняющей переключение телевизора на предыдущий канал, 
+BOOST_FIXTURE_TEST_SUITE(switching_to_previous_channel, switching_to_previous_channel_)
+// на котором телевизор находился ранее
+BOOST_AUTO_TEST_CASE(switch_previous_channel)
+{
+	BOOST_CHECK_EQUAL(tv.GetChannel(), 81);
+	tv.SelectPreviousChannel();
+	BOOST_CHECK_EQUAL(tv.GetChannel(), 5);
+	tv.SelectPreviousChannel();
+	BOOST_CHECK_EQUAL(tv.GetChannel(), 81);
+}
+BOOST_AUTO_TEST_SUITE_END()
+
+
+struct opportunities_work_channel_name_ : when_turned_on_
+{
+	opportunities_work_channel_name_()
+	{
+		tv.TurnOn();
+		// Задали каналу имя
+		tv.SetChannelName(10, "Good Morning");
+	}
+};
+
+// возможность работы с именем канала 
+BOOST_FIXTURE_TEST_SUITE(opportunities_work_channel_name, opportunities_work_channel_name_)
+
+BOOST_AUTO_TEST_CASE(get_channel_by_name)
+{
+	// Получение номера канала по имени
+	BOOST_CHECK_EQUAL(tv.GetChannelByName("Good Morning"), 10);
+	// Получение 0 если канала с введенным именем нет
+	BOOST_CHECK_EQUAL(tv.GetChannelByName("Goorning"), 0);
+}
+BOOST_AUTO_TEST_CASE(get_channel_name)
+{
+	// Получение имя канала по номеру
+	BOOST_CHECK_EQUAL(tv.GetChannelName(10), "Good Morning");
+	// Получение пустую строку если номеру не присвоено имя
+	BOOST_CHECK(tv.GetChannelName(50).empty());
+}
+BOOST_AUTO_TEST_CASE(delete_channel_name)
+{
+	// Получение номера удаленного канала по его номеру
+	BOOST_CHECK_EQUAL(tv.DeleteChannelName("Hello"), 0);
+	BOOST_CHECK_EQUAL(tv.DeleteChannelName("Good Morning"), 10);
+}
+BOOST_AUTO_TEST_CASE(select_channel_by_name)
+{
+	// Переключение канала по его имени
+	tv.SelectChannel(33);
+	tv.SelectChannel("Good Morning");
+	BOOST_CHECK_EQUAL(tv.GetChannel(), 10);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()

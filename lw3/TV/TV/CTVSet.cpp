@@ -43,6 +43,14 @@ bool CTVSet::SelectChannel(int channel)
 	return false;
 }
 
+bool CTVSet::SelectChannel(std::string nameChannel)
+{
+	int numChannel = GetChannelByName(nameChannel);
+	SelectChannel(numChannel);
+
+	return true;
+}
+
 void CTVSet::SelectPreviousChannel()
 {
 	if (m_isOn)
@@ -95,7 +103,7 @@ std::string CTVSet::GetChannelName(int channel)
 
 	return it != m_namedChannels.end()
 		? it->second
-		: "Channel " + std::to_string(channel) + " hasn't name\n";
+		: "";
 }
 
 int CTVSet::GetChannelByName(const std::string name) const
@@ -112,6 +120,7 @@ int CTVSet::GetChannelByName(const std::string name) const
 		}
 	}
 
+	// магическая ошибка
 	return 0;
 }
 
@@ -132,6 +141,7 @@ int CTVSet::DeleteChannelName(std::string name)
 		}
 	}
 
+	//тоже магическа ошибка
 	return 0;
 }
 

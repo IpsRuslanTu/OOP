@@ -10,6 +10,7 @@ public:
 	int GetChannel() const;
 	bool IsTurnedOn() const;
 	bool SelectChannel(int channel);
+	bool SelectChannel(std::string channel);
 	void SelectPreviousChannel();
 	void SetChannelName(int channel, std::string name);
 	std::map<int, std::string> GetNamedChannels() const;

@@ -21,7 +21,8 @@ CRemoteControl::CRemoteControl(CTVSet& tv, std::istream& input, std::ostream& ou
 		{ "SetChannelName", bind(&CRemoteControl::SetChannelName, this, _1) },
 		{ "GetChannelName", bind(&CRemoteControl::GetChannelName, this, _1) }, 
 		{ "GetChannelByName", bind(&CRemoteControl::GetChannelByName, this, _1) },
-		{ "DeleteChannelName", bind(&CRemoteControl::DeleteChannelName, this, _1) }, })
+		{ "DeleteChannelName", bind(&CRemoteControl::DeleteChannelName, this, _1) }
+	})
 {
 }
 
@@ -78,15 +79,32 @@ bool CRemoteControl::Info(std::istream& /*args*/)
 
 bool CRemoteControl::SelectChannel(std::istream& args)
 {
-	if (m_tv.IsTurnedOn())
+	if (!m_tv.IsTurnedOn())
 	{
-		int channel;
-		args >> channel;
-
-		m_tv.SelectChannel(channel);
-		m_output << "Your channel is " << m_tv.GetChannel() << endl;
+		PrintWarning();
+		return true;
 	}
-	else PrintWarning();
+
+	int channel;
+	args >> channel;
+
+	if (args.fail())
+	{
+		args.clear();
+		std::string str;
+		args >> str;
+		m_tv.SelectChannel(str);
+	}
+	else
+	{
+		if (!isInRange(channel))
+		{
+			return true;
+		}
+		m_tv.SelectChannel(channel);
+	}
+
+	m_output << "Channel " << m_tv.GetChannel() << " is selected." << endl;
 
 	return true;
 }
@@ -96,7 +114,7 @@ bool CRemoteControl::SelectPreviousChannel(std::istream&)
 	if (m_tv.IsTurnedOn())
 	{
 		m_tv.SelectPreviousChannel();
-		m_output << "Your channel is " << m_tv.GetChannel() << endl;
+		m_output << "Your channel is " + to_string(m_tv.GetChannel()) << endl;
 	}
 	else PrintWarning();
 
@@ -118,6 +136,7 @@ bool CRemoteControl::SetChannelName(std::istream& args)
 		if (!trimName.empty())
 		{
 			m_tv.SetChannelName(channel, trimName);
+			m_output << to_string(channel) + " added name " << trimName; 
 		}
 		else
 		{
@@ -217,4 +236,17 @@ std::string CRemoteControl::TrimString(std::string str)
 void CRemoteControl::PrintWarning()
 {
 	m_output << "This operation is possible when the TV is turned on." << endl;
+}
+
+bool CRemoteControl::isInRange(int channel)
+{
+	if (channel >= 1 && channel <= 99)
+	{
+		return true;
+	}
+	else
+	{
+		m_output << "Invalid channel" << endl;
+		return false;
+	}
 }

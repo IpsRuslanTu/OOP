@@ -23,15 +23,12 @@ private:
 	bool DeleteChannelName(std::istream& args);
 
 private:
-	// функция-обработчик команды пользователя.
-	// Возвращает true, если команда распознана и false, если были ошибки
 	using Handler = std::function<bool(std::istream& args)>;
-
-	// Отображает название команды на её обработчик
 	using ActionMap = std::map<std::string, Handler>;
 
 	std::string TrimString(std::string str);
 	void PrintWarning();
+	bool isInRange(int channel);
 
 	CTVSet& m_tv;
 	std::istream& m_input;
