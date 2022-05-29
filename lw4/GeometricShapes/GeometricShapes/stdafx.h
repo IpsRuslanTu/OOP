@@ -8,5 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <functional>
+#include <optional>
 #include <map>
 #include <cmath>
+#include <memory>

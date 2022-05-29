@@ -6,24 +6,30 @@ using namespace std;
 
 int main()
 {
-	//CRectangle rect(1, 2, 5, 6, 7, 8);
-	//vector<IShape*> arr;
-	//arr.push_back(&rect);
+	CShapesStore shapes(cin, cout);
 
-	CTriangle tr(1, 1, 2, 2, 10, 0, 1, 1);
+	while (!cin.eof() && !cin.fail())
+	{
+		cout << "> ";
+		if (!shapes.AddShape())
+		{
+			cout << "Unknown shape!" << endl;
+		}
+	}
 
-	cout << tr.GetPerimeter() << " " << tr.GetArea();
-
-	//CShapesStore shapes(cin, cout);
-
-	//while (!cin.eof() && !cin.fail())
-	//{
-	//	cout << "> ";
-	//	if (!shapes.AddShape())
-	//	{
-	//		cout << "Unknown shape!" << endl;
-	//	}
-	//}
+	auto maxAreaShape = shapes.GetMaxAreaShape();
+	if (maxAreaShape != nullptr)
+	{
+		cout << "Shape with max area:\n";
+		cout << maxAreaShape->ToString() << endl;
+	}
+	
+	auto minPerimeterShape = shapes.GetMinPerimeterShape();
+	if (minPerimeterShape != nullptr)
+	{
+		cout << "Shape with min perimeter:\n";
+		cout << minPerimeterShape->ToString() << endl;
+	}
 
 	return 0;
 }

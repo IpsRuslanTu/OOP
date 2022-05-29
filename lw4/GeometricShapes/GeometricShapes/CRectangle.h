@@ -5,7 +5,7 @@
 class CRectangle : public ISolidShape
 {
 public:
-	CRectangle(double x, double y, double width, double height, uint32_t stroke, uint32_t fill);
+	CRectangle(CPoint point, double width, double height, uint32_t stroke, uint32_t fill);
 	double GetArea() override;
 	double GetPerimeter() override;
 	std::string ToString() override;

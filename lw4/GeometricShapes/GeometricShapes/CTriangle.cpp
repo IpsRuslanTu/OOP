@@ -1,17 +1,13 @@
 #include "CTriangle.h"
 
-CTriangle::CTriangle(double x1, double y1, double x2, double y2, double x3, double y3,
-	uint32_t stroke, uint32_t fill)
+using namespace std;
+
+CTriangle::CTriangle(CPoint p1, CPoint p2, CPoint p3, uint32_t stroke, uint32_t fill)
 {
-	CPoint p1{ x1, y1 };
 	m_vertex1 = p1;
-
-	CPoint p2{ x2, y2 };
 	m_vertex2 = p2;
-
-	CPoint p3{ x3, y3 };
 	m_vertex3 = p3;
-	
+
 	m_stroke = stroke;
 	m_fill = fill;
 }
@@ -41,13 +37,22 @@ double CTriangle::GetPerimeter()
 	{
 		perimeter += sides[i];
 	}
-	
+
 	return perimeter;
 }
 
 std::string CTriangle::ToString()
 {
-	return "triangle";
+	string info = "shape: triangle\npoint1: "
+		+ to_string(m_vertex1.x) + " " + to_string(m_vertex1.y)
+		+ "\npoint2: " + to_string(m_vertex2.x) + " " + to_string(m_vertex2.y)
+		+ "\npoint3: " + to_string(m_vertex3.x) + " " + to_string(m_vertex3.y)
+		+ "\noutline color: " + to_string(m_stroke)
+		+ "\nfill color: " + to_string(m_fill)
+		+ "\narea: " + to_string(GetArea())
+		+ "\nperimeter: " + to_string(GetPerimeter()) + "\n";
+
+	return info;
 }
 
 uint32_t CTriangle::GetOutlineColor()

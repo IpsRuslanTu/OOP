@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "CCircle.h"
 
-CCircle::CCircle(double x, double y, double radius, uint32_t stroke, uint32_t fill)
+using namespace std;
+
+CCircle::CCircle(CPoint point, double radius, uint32_t stroke, uint32_t fill)
 {
-	CPoint xy{ x, y };
-	m_center = xy;
+	m_center = point;
 	m_radius = radius;
 	m_stroke = stroke;
 	m_fill = fill;
@@ -20,9 +21,17 @@ double CCircle::GetPerimeter()
 	return 2 * M_PI * m_radius;
 }
 
-std::string CCircle::ToString() 
+std::string CCircle::ToString()
 {
-	return "circle";
+	string info = "shape: circle\ncenter: "
+		+ to_string(m_center.x) + " " + to_string(m_center.y)
+		+ "\nradius: " + to_string(m_radius)
+		+ "\noutline color: " + to_string(m_stroke)
+		+ "\nfill color: " + to_string(m_fill)
+		+ "\narea: " + to_string(GetArea())
+		+ "\nperimeter: " + to_string(GetPerimeter()) + "\n";
+
+	return info;
 }
 
 uint32_t CCircle::GetOutlineColor()

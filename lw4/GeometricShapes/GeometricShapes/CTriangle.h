@@ -6,8 +6,7 @@
 class CTriangle : public ISolidShape
 {
 public:
-	CTriangle(double x1, double y1, double x2, double y2, double x3, double y3, 
-		uint32_t stroke, uint32_t fill);
+	CTriangle(CPoint p1, CPoint p2, CPoint p3, uint32_t stroke, uint32_t fill);
 	double GetArea() override;
 	double GetPerimeter() override;
 	std::string ToString() override;

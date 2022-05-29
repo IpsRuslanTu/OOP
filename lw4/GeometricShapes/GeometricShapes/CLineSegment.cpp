@@ -1,5 +1,7 @@
 #include "CLineSegment.h"
 
+using namespace std;
+
 CLineSegment::CLineSegment(CPoint start, CPoint end, uint32_t stroke)
 	: m_start(start)
 	, m_end(end)
@@ -23,7 +25,13 @@ double CLineSegment::GetPerimeter()
 
 std::string CLineSegment::ToString()
 {
-	return "line segment";
+	string info = "shape: line\nstart point: "
+		+ to_string(m_start.x) + " " + to_string(m_start.y)
+		+ "\nend point: " + to_string(m_end.x) + " " + to_string(m_end.y)
+		+ "\noutline color: " + to_string(m_stroke)
+		+ "\nlenght: " + to_string(GetPerimeter()) + "\n";
+
+	return info;
 }
 
 uint32_t CLineSegment::GetOutlineColor()
