@@ -1,6 +1,6 @@
-#include <iostream>
-#include <vector>
+#include "stdafx.h"
 #include "CShapesStore.h"
+#include "CTriangle.h"
 
 using namespace std;
 
@@ -10,16 +10,20 @@ int main()
 	//vector<IShape*> arr;
 	//arr.push_back(&rect);
 
-	CShapesStore shapes(cin, cout);
+	CTriangle tr(1, 1, 2, 2, 10, 0, 1, 1);
 
-	while (!cin.eof() && !cin.fail())
-	{
-		cout << "> ";
-		if (!shapes.AddShape())
-		{
-			cout << "Unknown shape!" << endl;
-		}
-	}
+	cout << tr.GetPerimeter() << " " << tr.GetArea();
+
+	//CShapesStore shapes(cin, cout);
+
+	//while (!cin.eof() && !cin.fail())
+	//{
+	//	cout << "> ";
+	//	if (!shapes.AddShape())
+	//	{
+	//		cout << "Unknown shape!" << endl;
+	//	}
+	//}
 
 	return 0;
 }

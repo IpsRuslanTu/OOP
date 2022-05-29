@@ -1,9 +1,7 @@
+#include "stdafx.h"
 #include "CShapesStore.h"
 #include "CRectangle.h"
 #include "CCircle.h"
-#include <fstream>
-#include <sstream>
-#include <string>
 
 using namespace std;
 using namespace std::placeholders;

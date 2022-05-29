@@ -1,5 +1,4 @@
-#define _USE_MATH_DEFINES
-#include <cmath>
+#include "stdafx.h"
 #include "CCircle.h"
 
 CCircle::CCircle(double x, double y, double radius, uint32_t stroke, uint32_t fill)

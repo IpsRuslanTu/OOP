@@ -1,8 +1,6 @@
 #pragma once
+#include "stdafx.h"
 #include "IShape.h"
-#include <vector>
-#include <functional>
-#include <map>
 
 class CShapesStore
 {
