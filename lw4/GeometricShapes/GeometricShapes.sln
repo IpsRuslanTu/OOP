@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeometricShapes", "GeometricShapes\GeometricShapes.vcxproj", "{96182611-C0F8-44F8-AA1F-15FA76AAA5C5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_GeometricShapes", "Test_GeometricShapes\Test_GeometricShapes.vcxproj", "{F1CA5A80-4634-4C59-9908-53F1C58DF193}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{96182611-C0F8-44F8-AA1F-15FA76AAA5C5}.Release|x64.Build.0 = Release|x64
 		{96182611-C0F8-44F8-AA1F-15FA76AAA5C5}.Release|x86.ActiveCfg = Release|Win32
 		{96182611-C0F8-44F8-AA1F-15FA76AAA5C5}.Release|x86.Build.0 = Release|Win32
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Debug|x64.ActiveCfg = Debug|x64
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Debug|x64.Build.0 = Debug|x64
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Debug|x86.Build.0 = Debug|Win32
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Release|x64.ActiveCfg = Release|x64
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Release|x64.Build.0 = Release|x64
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Release|x86.ActiveCfg = Release|Win32
+		{F1CA5A80-4634-4C59-9908-53F1C58DF193}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

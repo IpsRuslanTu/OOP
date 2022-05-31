@@ -4,12 +4,12 @@
 using namespace std;
 
 CRectangle::CRectangle(CPoint point, double width, double height, uint32_t stroke, uint32_t fill)
+	: m_leftTop(point)
+	, m_width(width)
+	, m_height(height)
+	, m_stroke(stroke)
+	, m_fill(fill)
 {
-	m_leftTop = point;
-	m_width = width;
-	m_height = height;
-	m_stroke = stroke;
-	m_fill = fill;
 }
 
 double CRectangle::GetArea()
@@ -24,7 +24,7 @@ double CRectangle::GetPerimeter()
 
 std::string CRectangle::ToString()
 {
-	string info = "shape: rectangle\nstart point: "
+	string info = "shape: rectangle\nleft top: "
 		+ to_string(m_leftTop.x) + " " + to_string(m_leftTop.y)
 		+ "\nwidth: " + to_string(m_width)
 		+ "\nheight: " + to_string(m_height)

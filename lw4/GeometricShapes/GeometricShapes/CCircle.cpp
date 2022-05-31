@@ -4,11 +4,11 @@
 using namespace std;
 
 CCircle::CCircle(CPoint point, double radius, uint32_t stroke, uint32_t fill)
+	: m_center(point)
+	, m_radius(radius)
+	, m_stroke(stroke)
+	, m_fill(fill)
 {
-	m_center = point;
-	m_radius = radius;
-	m_stroke = stroke;
-	m_fill = fill;
 }
 
 double CCircle::GetArea()

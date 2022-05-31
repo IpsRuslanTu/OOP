@@ -3,13 +3,12 @@
 using namespace std;
 
 CTriangle::CTriangle(CPoint p1, CPoint p2, CPoint p3, uint32_t stroke, uint32_t fill)
+	: m_vertex1(p1)
+	, m_vertex2(p2)
+	, m_vertex3(p3)
+	, m_stroke(stroke)
+	, m_fill(fill)
 {
-	m_vertex1 = p1;
-	m_vertex2 = p2;
-	m_vertex3 = p3;
-
-	m_stroke = stroke;
-	m_fill = fill;
 }
 
 double CTriangle::GetArea()

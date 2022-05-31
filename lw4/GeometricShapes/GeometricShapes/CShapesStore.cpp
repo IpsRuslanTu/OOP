@@ -84,6 +84,8 @@ bool CShapesStore::AddCircle(istream& args)
 		return true;
 	}
 
+	//vector<double> doubleValues = ParseArgs(args, 3, double);
+
 	CPoint point{ x, y };
 	auto circle = make_shared<CCircle>(point, radius, stroke, fill);
 
@@ -196,4 +198,19 @@ shared_ptr<IShape> CShapesStore::GetMinPerimeterShape()
 	}
 
 	return minPerimeterShape;
+}
+
+template <typename T>
+vector<double> CShapesStore::ParseArgs(std::istream& args, int count, T)
+{
+	vector<T> v;
+	T temp;
+	int i = 0;
+
+	while (args >> temp && i < count)
+	{
+		v.push_back(temp);
+	}
+
+	return v;
 }
