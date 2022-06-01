@@ -159,6 +159,7 @@
     <ClCompile Include="Test_CCircle.cpp" />
     <ClCompile Include="Test_CLineSegment.cpp" />
     <ClCompile Include="Test_CRectangle.cpp" />
+    <ClCompile Include="Test_CShapeStore.cpp" />
     <ClCompile Include="Test_CTriangle.cpp" />
     <ClCompile Include="Test_GeometricShapes.cpp" />
   </ItemGroup>

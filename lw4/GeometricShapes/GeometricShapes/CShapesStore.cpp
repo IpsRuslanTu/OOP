@@ -40,18 +40,17 @@ bool CShapesStore::AddRectangle(istream& args)
 	double x = 0, y = 0, width = 0, height = 0;
 	uint32_t stroke = 0, fill = 0;
 
-	try
+	args >> x;
+	args >> y;
+	args >> width;
+	args >> height;
+	args >> stroke;
+	args >> fill;
+
+	if (args.fail())
 	{
-		args >> x;
-		args >> y;
-		args >> width;
-		args >> height;
-		args >> stroke;
-		args >> fill;
-	}
-	catch (const exception& e)
-	{
-		m_output << "invalid parameters for rectangle" << endl;
+		m_output << "Error. Check parameters\n";
+
 		return true;
 	}
 
@@ -70,21 +69,18 @@ bool CShapesStore::AddCircle(istream& args)
 	double x, y, radius;
 	uint32_t stroke, fill;
 
-	try
+	args >> x;
+	args >> y;
+	args >> radius;
+	args >> stroke;
+	args >> fill;
+
+	if (args.fail())
 	{
-		args >> x;
-		args >> y;
-		args >> radius;
-		args >> stroke;
-		args >> fill;
-	}
-	catch (const exception& e)
-	{
-		m_output << "invalid parameters for circle" << endl;
+		m_output << "Error. Check parameters\n";
+
 		return true;
 	}
-
-	//vector<double> doubleValues = ParseArgs(args, 3, double);
 
 	CPoint point{ x, y };
 	auto circle = make_shared<CCircle>(point, radius, stroke, fill);
@@ -100,21 +96,20 @@ bool CShapesStore::AddTriangle(istream& args)
 	double x1, y1, x2, y2, x3, y3;
 	uint32_t stroke, fill;
 
-	try
-	{
-		args >> x1;
-		args >> y1;
-		args >> x2;
-		args >> y2;
-		args >> x3;
-		args >> y3;
+	args >> x1;
+	args >> y1;
+	args >> x2;
+	args >> y2;
+	args >> x3;
+	args >> y3;
 
-		args >> stroke;
-		args >> fill;
-	}
-	catch (const exception& e)
+	args >> stroke;
+	args >> fill;
+
+	if (args.fail())
 	{
-		m_output << "invalid parameters for triangle" << endl;
+		m_output << "Error. Check parameters\n";
+
 		return true;
 	}
 
@@ -135,18 +130,17 @@ bool CShapesStore::AddLineSegment(std::istream& args)
 	double x1, y1, x2, y2;
 	uint32_t stroke;
 
-	try
-	{
-		args >> x1;
-		args >> y1;
-		args >> x2;
-		args >> y2;
+	args >> x1;
+	args >> y1;
+	args >> x2;
+	args >> y2;
 
-		args >> stroke;
-	}
-	catch (const exception& e)
+	args >> stroke;
+
+	if (args.fail())
 	{
-		m_output << "invalid parameters for line" << endl;
+		m_output << "Error. Check parameters\n";
+
 		return true;
 	}
 
@@ -198,19 +192,4 @@ shared_ptr<IShape> CShapesStore::GetMinPerimeterShape()
 	}
 
 	return minPerimeterShape;
-}
-
-template <typename T>
-vector<double> CShapesStore::ParseArgs(std::istream& args, int count, T)
-{
-	vector<T> v;
-	T temp;
-	int i = 0;
-
-	while (args >> temp && i < count)
-	{
-		v.push_back(temp);
-	}
-
-	return v;
 }

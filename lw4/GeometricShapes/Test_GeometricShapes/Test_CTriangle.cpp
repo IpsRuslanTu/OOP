@@ -37,12 +37,12 @@ BOOST_AUTO_TEST_CASE(triangle_get_vertex)
 
 BOOST_AUTO_TEST_CASE(triangle_get_area)
 {
-	BOOST_CHECK(triangle.GetArea() - 20.000000 < EPSILON);
+	BOOST_CHECK(std::abs(triangle.GetArea() - 20.000000) < EPSILON);
 }
 
 BOOST_AUTO_TEST_CASE(triangle_get_perimeter)
 {
-	BOOST_CHECK(triangle.GetPerimeter() - 21.783307 < EPSILON);
+	BOOST_CHECK(std::abs(triangle.GetPerimeter() - 21.783307) < EPSILON);
 }
 
 BOOST_AUTO_TEST_CASE(triangle_to_string)

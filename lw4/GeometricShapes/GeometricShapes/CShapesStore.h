@@ -22,9 +22,6 @@ private:
 	bool AddTriangle(std::istream& args);
 	bool AddLineSegment(std::istream& args);
 
-	template <typename T>
-	std::vector<double> ParseArgs(std::istream& args, int count, T);
-
 	std::istream& m_input;
 	std::ostream& m_output;
 
