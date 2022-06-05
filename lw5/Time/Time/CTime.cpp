@@ -1,5 +1,6 @@
 #include "CTime.h"
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
@@ -92,4 +93,113 @@ CTime& CTime::operator -=(CTime const& time)
 	this->m_time = temp < 0 ? (MAX_SECONDS + 1 + temp) : this->m_time;
 
 	return *this;
+}
+
+CTime CTime::operator *(int const& x)const
+{
+	int result = m_time * x;
+
+	if (result < 0)
+	{
+		result = result % (MAX_SECONDS + 1);
+		if (result != 0)
+		{
+			result = MAX_SECONDS + 1 + result;
+		}
+
+		return CTime(result);
+	}
+
+	result = result > MAX_SECONDS ? (result % (MAX_SECONDS + 1)) : result;
+
+	return CTime(result);
+}
+
+CTime operator *(int const& x, CTime const& time)
+{
+	return CTime(time * x);
+}
+
+CTime CTime::operator /(int i)const
+{
+	if (i == 0)
+	{
+		throw std::invalid_argument("You can't divide by zero");
+	}
+
+	int result;
+
+	if (i < 0)
+	{
+		i = -i;
+		result = m_time / i;
+		result = -result;
+
+		result = result % (MAX_SECONDS + 1);
+		result = MAX_SECONDS + 1 + result;
+
+		return CTime(result);
+	}
+	else {
+		result = m_time / i;
+	}
+
+	return CTime(result);
+}
+
+int CTime::operator /(CTime const& time)const
+{
+	return m_time / time.m_time;
+}
+
+CTime& CTime::operator *=(int const& x)
+{
+	CTime temp = *this * x;
+	this->m_time = temp.m_time;
+
+	return *this;
+}
+
+CTime& CTime::operator /=(int const& x)
+{
+	CTime temp = *this / x;
+	this->m_time = temp.m_time;
+
+	return *this;
+}
+
+std::ostream& operator<<(std::ostream& ostream, CTime const& time)
+{
+	ostream << time.GetHours() << ":" << time.GetMinutes() << ":" << time.GetSeconds() << endl;
+
+	return ostream;
+}
+
+std::istream& operator >>(istream& is, CTime& time)
+{
+	unsigned h;
+	unsigned m;
+	unsigned s;
+
+	is >> h;
+	is.ignore(1, ':');
+	is >> m;
+	is.ignore(1, ':');
+	is >> s;
+
+	CTime temp(h, m, s);
+
+	time.m_time = temp.m_time;
+
+	return is;
+}
+
+bool operator ==(const CTime& lhs, const CTime& rhs)
+{
+	return lhs.m_time == rhs.m_time;
+}
+
+bool operator !=(const CTime& lhs, const CTime& rhs)
+{
+	return lhs.m_time != rhs.m_time;
 }

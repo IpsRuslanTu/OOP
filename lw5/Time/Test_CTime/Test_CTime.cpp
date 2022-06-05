@@ -2,6 +2,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include "/OOP/lw5/Time/Time/CTime.h"
 #include <stdexcept>
+#include <sstream>
 
 struct CorrectTimeFixture
 {
@@ -176,4 +177,174 @@ BOOST_AUTO_TEST_CASE(test_minus_equal_with_overflow)
 	BOOST_CHECK_EQUAL(time1.GetSeconds(), 55);
 	BOOST_CHECK_EQUAL(time1.GetMinutes(), 59);
 	BOOST_CHECK_EQUAL(time1.GetHours(), 23);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_simple_case)
+{
+	CTime time1(5);
+	CTime result = time1 * 2;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 10);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result.GetHours(), 0);
+	CTime time2(1000);
+	CTime result2 = time2 * -3;
+	BOOST_CHECK_EQUAL(result2.GetSeconds(), 0);
+	BOOST_CHECK_EQUAL(result2.GetMinutes(), 10);
+	BOOST_CHECK_EQUAL(result2.GetHours(), 23);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_with_overflow)
+{
+	CTime time1(80000);
+	CTime result = time1 * 2;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 40);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 26);
+	BOOST_CHECK_EQUAL(result.GetHours(), 20);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_simple_case2)
+{
+	CTime time1(5);
+	CTime result = 5 * time1;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 25);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_simple_case3)
+{
+	CTime time2(432);
+	CTime result2 = time2 * -1000;
+	BOOST_CHECK_EQUAL(-432000 % 86400, 0);
+	BOOST_CHECK_EQUAL(result2.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result2.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_with_overflow2)
+{
+	CTime time1(80000);
+	CTime result = 2 * time1;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 40);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 26);
+	BOOST_CHECK_EQUAL(result.GetHours(), 20);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_on_zero)
+{
+	CTime time1(10);
+	BOOST_CHECK_THROW(time1 / 0, std::invalid_argument);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_simple_case)
+{
+	CTime time1(10);
+	CTime result = time1 / 2;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 5);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_simple_case2)
+{
+	CTime time1(1);
+	CTime result = time1 / 200000;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 0);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_simple_case3)
+{
+	CTime time1(0);
+	CTime result = time1 / 200000;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 0);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(result.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_with_negative_number)
+{
+	CTime time1(10);
+	CTime result = time1 / -1;
+	BOOST_CHECK_EQUAL(result.GetSeconds(), 50);
+	BOOST_CHECK_EQUAL(result.GetMinutes(), 59);
+	BOOST_CHECK_EQUAL(result.GetHours(), 23);
+}
+
+BOOST_AUTO_TEST_CASE(test_division_with_CTime)
+{
+	CTime time1(30);
+	CTime time2(20);
+	int result = time1 / time2;
+	BOOST_CHECK_EQUAL(result, 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_equal_simple_case)
+{
+	CTime time1(3);
+	time1 *= 2;
+	BOOST_CHECK_EQUAL(time1.GetSeconds(), 6);
+	BOOST_CHECK_EQUAL(time1.GetMinutes(), 0);
+	BOOST_CHECK_EQUAL(time1.GetHours(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_equal_with_overflow)
+{
+	CTime time1(80000);
+	time1 *= 2;
+	BOOST_CHECK_EQUAL(time1.GetSeconds(), 40);
+	BOOST_CHECK_EQUAL(time1.GetMinutes(), 26);
+	BOOST_CHECK_EQUAL(time1.GetHours(), 20);
+}
+
+BOOST_AUTO_TEST_CASE(test_multiplication_equal_with_negative)
+{
+	CTime time1(1);
+	time1 *= -2;
+	BOOST_CHECK_EQUAL(time1.GetSeconds(), 58);
+	BOOST_CHECK_EQUAL(time1.GetMinutes(), 59);
+	BOOST_CHECK_EQUAL(time1.GetHours(), 23);
+}
+
+BOOST_AUTO_TEST_CASE(test_ostream)
+{
+	CTime time1(86399);
+
+	std::stringstream ss1;
+	ss1 << time1;
+	std::string str = ss1.str();
+
+	BOOST_CHECK_EQUAL(str, "23:59:59\n");
+}
+
+BOOST_AUTO_TEST_CASE(test_istream)
+{
+	std::stringstream ss1;
+	ss1 << "05:05:05";
+
+	CTime time;
+
+	ss1 >> time;
+
+	BOOST_CHECK_EQUAL(time.GetHours(), 05);
+	BOOST_CHECK_EQUAL(time.GetMinutes(), 05);
+	BOOST_CHECK_EQUAL(time.GetSeconds(), 05);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_equal)
+{
+	CTime time1(1);
+	CTime time2(1);
+
+	BOOST_CHECK(time1 == time2);
+	BOOST_CHECK_EQUAL(time1 != time2, false);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_unequal)
+{
+	CTime time1(1);
+	CTime time2(5);
+
+	BOOST_CHECK_EQUAL(time1 == time2, false);
+	BOOST_CHECK(time1 != time2);
 }

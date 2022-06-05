@@ -26,8 +26,23 @@ public:
 	CTime& operator +=(CTime const& time);
 	CTime& operator -=(CTime const& time);
 
+	CTime operator *(int const& x)const;
+
+	CTime operator /(int i) const;
+	int operator /(CTime const& time)const;
+
+	CTime& operator *=(int const& x);
+	CTime& operator /=(int const& x);
+
+	friend std::istream& operator >>(std::istream& is, CTime& time);
+	friend bool operator==(const CTime& lhs, const CTime& rhs);
+	friend bool operator!=(const CTime& lhs, const CTime& rhs);
+
 private:
 	const int MAX_SECONDS = 86399;
 	unsigned m_time;
 };
 
+CTime operator *(int const& x, CTime const& time);
+
+std::ostream& operator <<(std::ostream& ostream, CTime const& time);
