@@ -348,3 +348,48 @@ BOOST_AUTO_TEST_CASE(test_operator_compare_unequal)
 	BOOST_CHECK_EQUAL(time1 == time2, false);
 	BOOST_CHECK(time1 != time2);
 }
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_more)
+{
+	CTime time1(1);
+	CTime time2(5);
+	CTime time3(5);
+
+	BOOST_CHECK_EQUAL(time1 > time2, false);
+	BOOST_CHECK(time2 > time1);
+	BOOST_CHECK_EQUAL(time2 > time3, false);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_less)
+{
+	CTime time1(1);
+	CTime time2(5);
+	CTime time3(5);
+
+	BOOST_CHECK_EQUAL(time2 < time1, false);
+	BOOST_CHECK(time1 < time2);
+	BOOST_CHECK_EQUAL(time2 < time3, false);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_equal_more)
+{
+	CTime time1(1);
+	CTime time2(5);
+	CTime time3(5);
+
+	BOOST_CHECK_EQUAL(time1 >= time2, false);
+	BOOST_CHECK(time2 >= time1);
+	BOOST_CHECK(time2 >= time3);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_compare_equal_less)
+{
+	CTime time1(1);
+	CTime time2(5);
+	CTime time3(5);
+
+	BOOST_CHECK_EQUAL(time2 <= time1, false);
+	BOOST_CHECK(time1 <= time2);
+	BOOST_CHECK(time2 <= time3);
+}

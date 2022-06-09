@@ -168,7 +168,7 @@ CTime& CTime::operator /=(int const& x)
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& ostream, CTime const& time)
+std::ostream& operator <<(std::ostream& ostream, CTime const& time)
 {
 	ostream << time.GetHours() << ":" << time.GetMinutes() << ":" << time.GetSeconds() << endl;
 
@@ -194,12 +194,32 @@ std::istream& operator >>(istream& is, CTime& time)
 	return is;
 }
 
-bool operator ==(const CTime& lhs, const CTime& rhs)
+bool CTime::operator ==(const CTime& other)const
 {
-	return lhs.m_time == rhs.m_time;
+	return m_time == other.m_time;
 }
 
-bool operator !=(const CTime& lhs, const CTime& rhs)
+bool CTime::operator !=(const CTime& other)const
 {
-	return lhs.m_time != rhs.m_time;
+	return m_time != other.m_time;
+}
+
+bool CTime::operator >(const CTime& other)const
+{
+	return m_time > other.m_time;
+}
+
+bool CTime::operator <(const CTime& other)const
+{
+	return m_time < other.m_time;
+}
+
+bool CTime::operator >=(const CTime& other)const
+{
+	return m_time >= other.m_time;
+}
+
+bool CTime::operator <=(const CTime& other)const
+{
+	return m_time <= other.m_time;
 }

@@ -35,8 +35,15 @@ public:
 	CTime& operator /=(int const& x);
 
 	friend std::istream& operator >>(std::istream& is, CTime& time);
-	friend bool operator==(const CTime& lhs, const CTime& rhs);
-	friend bool operator!=(const CTime& lhs, const CTime& rhs);
+
+	bool operator ==(const CTime& other)const;
+	bool operator !=(const CTime& other)const;
+
+	bool operator >(const CTime& other)const;
+	bool operator <(const CTime& other)const;
+
+	bool operator >=(const CTime& other)const;
+	bool operator <=(const CTime& other)const;
 
 private:
 	const int MAX_SECONDS = 86399;
