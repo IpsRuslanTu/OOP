@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CStringStack.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="StringStack.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CStringStack.h" />
