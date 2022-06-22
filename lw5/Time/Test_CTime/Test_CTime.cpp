@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE Test_CTime
+﻿#define BOOST_TEST_MODULE Test_CTime
 #include <boost/test/included/unit_test.hpp>
 #include "/OOP/lw5/Time/Time/CTime.h"
 #include <stdexcept>
@@ -41,6 +41,8 @@ BOOST_AUTO_TEST_CASE(input_incorrect_hours)
 	BOOST_CHECK_THROW(CTime time1(-1, 15, 6), std::invalid_argument);
 }
 
+//описание тестов нужно доработать
+//сейчас оно описывает действие и не то что мы проверяем
 BOOST_AUTO_TEST_CASE(input_incorrect_minutes)
 {
 	BOOST_CHECK_THROW(CTime time1(23, 60, 6), std::invalid_argument);
@@ -71,6 +73,7 @@ BOOST_AUTO_TEST_CASE(valid_parameters)
 BOOST_AUTO_TEST_CASE(test_increment)
 {
 	CTime time1(86399);
+	//лучше разделить на два тест кейса
 	CTime time11 = ++time1;
 	BOOST_CHECK_EQUAL(time11.GetSeconds(), 0);
 	BOOST_CHECK_EQUAL(time11.GetMinutes(), 0);

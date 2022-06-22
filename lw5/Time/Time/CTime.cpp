@@ -1,9 +1,11 @@
-#include "CTime.h"
+﻿#include "CTime.h"
 #include <stdexcept>
 #include <iostream>
 
 using namespace std;
 
+
+//Вынести магически константы в переменные
 CTime::CTime(unsigned hours, unsigned minutes, unsigned seconds)
 	: m_time(hours * 3600 + minutes * 60 + seconds)
 {
@@ -73,6 +75,8 @@ CTime CTime::operator +(CTime const& time)const
 
 CTime CTime::operator -(CTime const& time)const
 {
+	//можно вынести сравнение с нужным промежутком в отельную функцию
+	//чтобы не дублировать эту логику
 	int temp = m_time - time.m_time;
 	temp = temp < 0 ? (MAX_SECONDS + 1 + temp) : temp;
 
@@ -131,6 +135,7 @@ CTime CTime::operator /(int i)const
 
 	if (i < 0)
 	{
+		//тут что-то не так, i становится положительным, вычисляем и делаем результат отрицательным
 		i = -i;
 		result = m_time / i;
 		result = -result;
