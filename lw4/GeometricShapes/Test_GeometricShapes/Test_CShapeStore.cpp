@@ -1,4 +1,4 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include "/OOP/lw4/GeometricShapes/GeometricShapes/CShapesStore.h"
 #include <sstream>
 #include <boost/optional.hpp>
@@ -26,7 +26,6 @@ struct CShapesStoreFixture : CShapesStoreDependencies
 
 	void VerifyCommandHandling(const string& command, const string& expectedOutput)
 	{
-		// Предварительно очищаем содержимое выходного потока
 		output = stringstream();
 		input = stringstream();
 		BOOST_CHECK(input << command);
@@ -54,6 +53,8 @@ BOOST_AUTO_TEST_CASE(get_shape_max_area)
 	BOOST_CHECK(std::abs(store.GetMaxAreaShape()->GetPerimeter() - 31.415926) < EPSILON);
 }
 
+//РјРѕР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РєРµР№СЃ Р±РµР· С„РёРіСѓСЂ
+//С‡С‚Рѕ Р±СѓРґРµС‚ РµСЃР»Рё РѕРґРёРЅР°РєРѕРІС‹Рµ, РјРѕР¶РµС‚ РЅР°РїРёСЃР°С‚СЊ С‚РµСЃС‚?
 BOOST_AUTO_TEST_CASE(get_shape_min_perimeter)
 {
 	VerifyCommandHandling("rectangle 2 2 2 2 2 2", "rectangle added\n");

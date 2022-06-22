@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "/OOP/lw4/GeometricShapes/GeometricShapes/CRectangle.h"
 
 struct CRectangleFixture
@@ -15,6 +15,7 @@ struct CRectangleFixture
 
 BOOST_FIXTURE_TEST_SUITE(rectangle_methods, CRectangleFixture)
 
+//подкорректируй название тестов, оно не отображает то что он проверяет
 BOOST_AUTO_TEST_CASE(rectangle_get_outline_color)
 {
 	BOOST_CHECK_EQUAL(rect.GetOutlineColor(), 1);

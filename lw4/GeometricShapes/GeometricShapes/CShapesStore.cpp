@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "CShapesStore.h"
 #include "CCircle.h"
 #include "CRectangle.h"
@@ -71,6 +71,7 @@ bool CShapesStore::AddCircle(istream& args)
 
 	args >> x;
 	args >> y;
+	//может быть отрицательным? нужны еще тесты
 	args >> radius;
 	args >> stroke;
 	args >> fill;
@@ -85,7 +86,7 @@ bool CShapesStore::AddCircle(istream& args)
 	CPoint point{ x, y };
 	auto circle = make_shared<CCircle>(point, radius, stroke, fill);
 
-	m_store.emplace_back(move(circle));
+	m_store.push_back(circle);
 
 	m_output << "circle added" << endl;
 	return true;
@@ -108,6 +109,7 @@ bool CShapesStore::AddTriangle(istream& args)
 
 	if (args.fail())
 	{
+		//лучше сделать подробнее
 		m_output << "Error. Check parameters\n";
 
 		return true;
@@ -119,12 +121,13 @@ bool CShapesStore::AddTriangle(istream& args)
 
 	auto triangle = make_shared<CTriangle>(p1, p2, p3, stroke, fill);
 
-	m_store.emplace_back(move(triangle));
+	m_store.push_back(triangle);
 
 	m_output << "triangle added" << endl;
 	return true;
 }
 
+//можно выделить класс - фабрику для создания фигур
 bool CShapesStore::AddLineSegment(std::istream& args)
 {
 	double x1, y1, x2, y2;
@@ -148,7 +151,7 @@ bool CShapesStore::AddLineSegment(std::istream& args)
 	CPoint p2{ x2, y2 };
 	auto line = make_shared<CLineSegment>(p1, p2, stroke);
 
-	m_store.emplace_back(move(line));
+	m_store.push_back(line);
 
 	m_output << "line added" << endl;
 	return true;
