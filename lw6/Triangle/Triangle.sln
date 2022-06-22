@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle", "Triangle\Triangle.vcxproj", "{57966348-18F5-410D-B097-46DEA78923ED}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle_Tests", "Triangle_Tests\Triangle_Tests.vcxproj", "{604E4170-E939-41F8-99C9-3161F83BC408}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{57966348-18F5-410D-B097-46DEA78923ED}.Release|x64.Build.0 = Release|x64
 		{57966348-18F5-410D-B097-46DEA78923ED}.Release|x86.ActiveCfg = Release|Win32
 		{57966348-18F5-410D-B097-46DEA78923ED}.Release|x86.Build.0 = Release|Win32
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Debug|x64.ActiveCfg = Debug|x64
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Debug|x64.Build.0 = Debug|x64
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Debug|x86.ActiveCfg = Debug|Win32
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Debug|x86.Build.0 = Debug|Win32
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Release|x64.ActiveCfg = Release|x64
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Release|x64.Build.0 = Release|x64
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Release|x86.ActiveCfg = Release|Win32
+		{604E4170-E939-41F8-99C9-3161F83BC408}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
