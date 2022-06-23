@@ -33,6 +33,7 @@ public:
 
 	CStringStack(CStringStack&& other) noexcept
 		: m_top(nullptr)
+		, m_size(0)
 	{
 		*this = std::move(other);
 	}

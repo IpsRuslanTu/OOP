@@ -38,9 +38,17 @@ bool FindMax(std::vector<T> const& arr, T& maxValue, Less const& less)
 		return false;
 	}
 
-	auto it = std::max_element(std::begin(arr), std::end(arr), less);
+	T max = arr[0];
 
-	maxValue = *it;
+	for (int i = 1; i < arr.size(); ++i)
+	{
+		if (less(max, arr[i]))
+		{
+			max = less(max, arr[i]) ? arr[i] : max;
+		}
+	}
+
+	maxValue = max;
 
 	return true;
 }
